@@ -80,9 +80,6 @@ EOF
     },
   ]
 
-  bootstrap_name = "runif"
-  bootstrap_uri  = "s3://elasticmapreduce/bootstrap-actions/run-if"
-  bootstrap_args = []
   log_uri        = "s3n://.../"
 
   project     = "Something"
@@ -112,47 +109,46 @@ EOF
 
 ## Inputs
 
-| Name                              | Description                                                                       |  Type  |   Default   | Required |
-| --------------------------------- | --------------------------------------------------------------------------------- | :----: | :---------: | :------: |
-| additional_master_security_groups | Additional master security groups to place the EMR EC2 instances in               | string |      -      |   yes    |
-| applications                      | List of EMR release applications                                                  |  list  |  `<list>`   |    no    |
-| bootstrap_args                    | List of arguments to the bootstrap action script                                  |  list  |  `<list>`   |    no    |
-| bootstrap_name                    | Name for the bootstrap action                                                     | string |      -      |   yes    |
-| bootstrap_uri                     | S3 URI for the bootstrap action script                                            | string |      -      |   yes    |
-| configurations                    | JSON array of EMR application configurations                                      | string |      -      |   yes    |
-| custom_ami_id                     | Custom AMI ID to base the EMR EC2 instance on                                     | string |      -      |   yes    |
-| environment                       | Name of environment this cluster is targeting                                     | string |  `Unknown`  |    no    |
-| instance_groups                   | List of objects for each desired instance group                                   |  list  |  `<list>`   |    no    |
-| key_name                          | EC2 key pair name                                                                 | string |      -      |   yes    |
-| log_uri                           | S3 URI of the EMR log destination, must begin with `s3n://` and end with trailing | string |      -      |   yes    |
-| name                              | Name of EMR cluster                                                               | string |      -      |   yes    |
-| project                           | Name of project this cluster is for                                               | string |  `Unknown`  |    no    |
-| release_label                     | EMR release version to use                                                        | string | `emr-5.7.0` |    no    |
-| subnet_id                         | Subnet used to house the EMR nodes                                                | string |      -      |   yes    |
-| vpc_id                            | ID of VPC meant to house cluster                                                  | string |      -      |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| additional_master_security_groups | Additional master security groups to place the EMR EC2 instances in | string | - | yes |
+| applications | List of EMR release applications | list | `<list>` | no |
+| configurations | JSON array of EMR application configurations | string | - | yes |
+| custom_ami_id | Custom AMI ID to base the EMR EC2 instance on | string | - | yes |
+| custom_tags | Custom tags to add to the default EMR tags | map | `<map>` | no |
+| environment | Name of environment this cluster is targeting | string | `Unknown` | no |
+| instance_groups | List of objects for each desired instance group | list | `<list>` | no |
+| key_name | EC2 key pair name | string | - | yes |
+| log_uri | S3 URI of the EMR log destination, must begin with `s3n://` and end with trailing | string | - | yes |
+| name | Name of EMR cluster | string | - | yes |
+| project | Name of project this cluster is for | string | `Unknown` | no |
+| release_label | EMR release version to use | string | `emr-5.7.0` | no |
+| subnet_id | Subnet used to house the EMR nodes | string | - | yes |
+| vpc_id | ID of VPC meant to house cluster | string | - | yes |
 
 ## Outputs
 
-| Name                                            | Description                                                                         |
-| ----------------------------------------------- | ----------------------------------------------------------------------------------- |
-| default_ami_id                                  | The most recent suitable AMI ID for EMR to base on                                  |
-| iam_emr_autoscaling_assume_role_policy          | The policy that grants an entity permission to assume the EMR autoscaling role      |
-| iam_emr_autoscaling_role                        | The name of the EMR autoscaling role                                                |
-| iam_emr_autoscaling_role_arn                    | The Amazon Resource Name (ARN) specifying the EMR autoscaling role                  |
-| iam_emr_autoscaling_role_policy_arn             | The ARN of the policy applied to the EMR autoscaling role                           |
-| iam_emr_autoscaling_role_unique_id              | The stable and unique string identifying the EMR autoscaling role                   |
+| Name | Description |
+|------|-------------|
+| default_ami_id | The most recent suitable AMI ID for EMR to base on |
+| iam_emr_autoscaling_assume_role_policy | The policy that grants an entity permission to assume the EMR autoscaling role |
+| iam_emr_autoscaling_role | The name of the EMR autoscaling role |
+| iam_emr_autoscaling_role_arn | The Amazon Resource Name (ARN) specifying the EMR autoscaling role |
+| iam_emr_autoscaling_role_policy_arn | The ARN of the policy applied to the EMR autoscaling role |
+| iam_emr_autoscaling_role_unique_id | The stable and unique string identifying the EMR autoscaling role |
 | iam_emr_ec2_instance_profile_assume_role_policy | The policy that grants an entity permission to assume the EC2 instance profile role |
-| iam_emr_ec2_instance_profile_policy_arn         | The ARN of the policy applied to the EC2 instance profile role                      |
-| iam_emr_ec2_instance_profile_role               | The name of the EC2 instance profile role                                           |
-| iam_emr_ec2_instance_profile_role_arn           | The Amazon Resource Name (ARN) specifying the EC2 instance profile role             |
-| iam_emr_ec2_instance_profile_role_unique_id     | The stable and unique string identifying the EC2 instance profile role              |
-| iam_emr_service_assume_role_policy              | The policy that grants an entity permission to assume the EMR service role          |
-| iam_emr_service_role                            | The name of the EMR service role                                                    |
-| iam_emr_service_role_arn                        | The Amazon Resource Name (ARN) specifying the EMR service role                      |
-| iam_emr_service_role_policy_arn                 | The ARN of the policy applied to the EMR service role                               |
-| iam_emr_service_role_unique_id                  | The stable and unique string identifying the EMR service role                       |
-| id                                              | The ID of the EMR cluster                                                           |
-| master_public_dns                               | The public DNS name of the master EC2 instance                                      |
-| master_security_group_id                        | The ID of the security group for master instance                                    |
-| name                                            | The name of the cluster                                                             |
-| slave_security_group_id                         | The ID of the security group for client instance                                    |
+| iam_emr_ec2_instance_profile_policy_arn | The ARN of the policy applied to the EC2 instance profile role |
+| iam_emr_ec2_instance_profile_role | The name of the EC2 instance profile role |
+| iam_emr_ec2_instance_profile_role_arn | The Amazon Resource Name (ARN) specifying the EC2 instance profile role |
+| iam_emr_ec2_instance_profile_role_unique_id | The stable and unique string identifying the EC2 instance profile role |
+| iam_emr_service_assume_role_policy | The policy that grants an entity permission to assume the EMR service role |
+| iam_emr_service_role | The name of the EMR service role |
+| iam_emr_service_role_arn | The Amazon Resource Name (ARN) specifying the EMR service role |
+| iam_emr_service_role_policy_arn | The ARN of the policy applied to the EMR service role |
+| iam_emr_service_role_unique_id | The stable and unique string identifying the EMR service role |
+| id | The ID of the EMR cluster |
+| master_public_dns | The public DNS name of the master EC2 instance |
+| master_security_group_id | The ID of the security group for master instance |
+| name | The name of the cluster |
+| slave_security_group_id | The ID of the security group for client instance |
+| tags | Tags applied to all EMR instances |

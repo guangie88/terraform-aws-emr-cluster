@@ -69,20 +69,6 @@ variable "additional_master_security_groups" {
   description = "Additional master security groups to place the EMR EC2 instances in"
 }
 
-variable "bootstrap_name" {
-  description = "Name for the bootstrap action"
-}
-
-variable "bootstrap_uri" {
-  description = "S3 URI for the bootstrap action script"
-}
-
-variable "bootstrap_args" {
-  description = "List of arguments to the bootstrap action script"
-  default     = []
-  type        = "list"
-}
-
 variable "custom_tags" {
   description = "Custom tags to add to the default EMR tags"
   default     = {}
