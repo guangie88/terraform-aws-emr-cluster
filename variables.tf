@@ -35,6 +35,15 @@ variable "configurations" {
   description = "JSON array of EMR application configurations"
 }
 
+variable "ebs_root_volume_size" {
+  description = <<EOF
+Size in GiB of the EBS root device volume of the Linux AMI that is used for each EC2 instance.
+Available in Amazon EMR version 4.x and later.
+EOF
+
+  default = 10
+}
+
 variable "key_name" {
   description = "EC2 key pair name"
 }

@@ -12,6 +12,8 @@ resource "aws_emr_cluster" "cluster" {
   applications   = "${var.applications}"
   configurations = "${var.configurations}"
 
+  ebs_root_volume_size = "${var.ebs_root_volume_size}"
+
   ec2_attributes {
     key_name                          = "${var.key_name}"
     subnet_id                         = "${var.subnet_id}"
